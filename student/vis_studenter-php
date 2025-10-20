@@ -1,0 +1,25 @@
+<?php include '../db.php'; ?>
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Vis studenter</title>
+</head>
+<body>
+    <h2>Alle studenter</h2>
+    <table border="1">
+        <tr><th>Brukernavn</th><th>Fornavn</th><th>Etternavn</th><th>Klassekode</th></tr>
+
+<?php
+$sql = "SELECT * FROM student";
+$resultat = $conn->query($sql);
+
+while ($rad = $resultat->fetch_assoc()) {
+    echo "<tr><td>{$rad['brukernavn']}</td><td>{$rad['fornavn']}</td><td>{$rad['etternavn']}</td><td>{$rad['klassekode']}</td></tr>";
+}
+$conn->close();
+?>
+    </table>
+</body>
+</html>
