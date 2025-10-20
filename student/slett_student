@@ -1,0 +1,33 @@
+<?php include '../db.php'; ?>
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Slett student</title>
+</head>
+<body>
+    <h2>Slett student</h2>
+    <form method="post">
+        Velg brukernavn:
+        <select name="brukernavn">
+            <?php
+            $res = $conn->query("SELECT brukernavn FROM student");
+            while ($r = $res->fetch_assoc()) {
+                echo "<option value='{$r['brukernavn']}'>{$r['brukernavn']}</option>";
+            }
+            ?>
+        </select>
+        <input type="submit" value="Slett">
+    </form>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $bn = $_POST["brukernavn"];
+    $conn->query("DELETE FROM student WHERE brukernavn='$bn'");
+    echo "Studenten ble slettet!";
+}
+$conn->close();
+?>
+</body>
+</html>
